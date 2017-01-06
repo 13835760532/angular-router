@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="stylesheets/mui.min.css">
+    <link rel="stylesheet" href="stylesheets/index.css">
+    <script src="javascripts/angular/angular.min.js"></script>
+    <script src="javascripts/phone.js"></script>
+</head>
+<body ng-app="myapp">
+<header class="mui-bar mui-bar-nav">
+    <h1 class="mui-title">通讯录</h1>
+    <a class="mui-action-back mui-icon mui-icon-plusempty mui-pull-right" ng-click="add()"></a>
+</header>
+<div ng-controller="myctrl">
+    <div class="mui-input-row mui-search" style="margin-top: 44px">
+        <input type="search" class="mui-input-clear" placeholder="" data-input-clear="15" data-input-search="15" ng-model="search" style="margin: 0">
+
+        <span class="mui-placeholder">
+        <span class="mui-icon mui-icon-search"></span>
+        <span>
+        </span>
+    </span>
+    </div>
+
+    <ul class="mui-table-view">
+        <div ng-show="type!==''" ng-click="show()">显示全部</div>
+        <li class="mui-table-view-cell" ng-repeat="item in data | filter:{en:type} |filter:{en:search} track by $index ">
+            <div>
+                {{item.en}}
+            </div>
+            <a href="tel:" ng-repeat="aa in item track by $index">
+                <span>{{aa.name}}</span>
+                <span>{{aa.phone}}</span>
+            </a>
+        </li>
+
+    </ul>
+    <div class="en" style="position: fixed;right:10px;width:20px;z-index:999;top:80px">
+        <div ng-repeat="item in data" ng-click="filter(item.en)">
+            {{item.en}}
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    window.onload=function () {
+        var placeholder=document.querySelector(".mui-placeholder");
+        var iconmuis=document.querySelector(".mui-icon-search")
+        console.log(iconmuis)
+        var input=document.querySelector(".mui-input-clear")
+        var plusempty=document.querySelector(".mui-icon-plusempty")
+        placeholder.onclick=function () {
+            this.style.width="20px";
+            input.focus();
+        }
+        input.onblur=function () {
+            placeholder.style.width="100%";
+        }
+        plusempty.onclick=function () {
+            alert(1)
+        }
+    }
+</script>
